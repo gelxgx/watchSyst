@@ -9,7 +9,6 @@
     import videojs from 'video.js'
     import 'webrtc-adapter'
     import RecordRTC from 'recordrtc'
-
     // the following imports are only needed when you're recording
     // audio-only using the videojs-wavesurfer plugin
     /*
@@ -126,14 +125,14 @@
         });
         },
         methods:{
-          take(){
-             this.player.record().exportImage().then(res => {
-               let blob = res
-               this.blobToBase64(blob,(res)=>{
-                 console.log(res)
-               })
+        take(){
+            this.player.record().exportImage().then(res => {
+            let blob = res
+            this.blobToBase64(blob,(res)=>{
+               console.log(res);
             })
-          },
+        })
+        },
         blobToBase64(blob, callback) {
             let fileReader = new FileReader();
             fileReader.onload = function(e) {
@@ -141,6 +140,14 @@
             };
             fileReader.readAsDataURL(blob);
           }
+        },
+        testApi(base64) {
+        client.detect(base64, 'BASE64').then(result => {
+            console.log(JSON.stringify(result));
+            }).catch(err => {
+                // 如果发生网络错误
+                console.log(err);
+            });
         },
         beforeDestroy() { 
             if (this.player) {
