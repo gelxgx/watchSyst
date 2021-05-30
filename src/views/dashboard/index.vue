@@ -1,12 +1,12 @@
 <template>
   <div class="dashboard-container">
-    <div class='info-part'>
+    <div class="info-part">
       <el-card class="userInfo-card">
         <div slot="header" class="clearfix">
           <span>用户信息</span>
         </div>
         <div v-for="o in 4" :key="o" class="text item">
-          {{'列表内容 ' + o }}
+          {{ "列表内容 " + o }}
         </div>
       </el-card>
       <el-card class="device-card">
@@ -14,7 +14,7 @@
           <span>设备信息</span>
         </div>
         <div v-for="o in 4" :key="o" class="text item">
-          {{'列表内容 ' + o }}
+          {{ "列表内容 " + o }}
         </div>
       </el-card>
     </div>
@@ -24,7 +24,7 @@
           <span>警告信息</span>
         </div>
         <div v-for="o in 4" :key="o" class="text item">
-          {{'列表内容 ' + o }}
+          {{ "列表内容 " + o }}
         </div>
       </el-card>
       <el-card class="content-card">
@@ -32,24 +32,21 @@
           <span>公告</span>
         </div>
         <div v-for="o in 4" :key="o" class="text item">
-          {{'列表内容 ' + o }}
+          {{ "列表内容 " + o }}
         </div>
       </el-card>
     </div>
-    <!-- <VideoJSRecord ref="video"/> -->
+
     <!-- <button @click="take">拍照</button> -->
   </div>
 </template>
 
 <script>
 import { mapGetters } from 'vuex'
-import VideoJSRecord from './VideoRecord'
 
 export default {
   name: 'Dashboard',
-  components: {
-    VideoJSRecord
-  },
+
   data() {
     return {
       chunks: [],
@@ -62,19 +59,16 @@ export default {
     }
   },
   computed: {
-    ...mapGetters([
-      'name'
-    ])
+    ...mapGetters(['name'])
   },
-  mounted(){
-      // this.$refs.video.player.record().getDevice();
+  mounted() {
+    // this.$refs.video.player.record().getDevice();
   },
-  methods:{
-    take(){
-     this.$refs.video.take()
-    },
-    
-  },
+  methods: {
+    take() {
+      this.$refs.video.take()
+    }
+  }
 }
 </script>
 
@@ -84,31 +78,31 @@ export default {
   // justify-content: space-between;
   margin-top: 20px;
 }
- .text {
-    font-size: 14px;
-  }
-.info-part{
-  display:inline-block;
+.text {
+  font-size: 14px;
+}
+.info-part {
+  display: inline-block;
   width: 65%;
   height: 100%;
   margin-left: 20px;
 }
 .userInfo-card {
-    width: 100%;
-    height:400px;
-  }
+  width: 100%;
+  height: 400px;
+}
 .device-card {
   margin-top: 60px;
   width: 100%;
-  height:300px;
+  height: 300px;
 }
-.notice-part{
+.notice-part {
   float: right;
   position: absolute;
   top: 20px;
   right: 30px;
-  display:inline-block;
-  width:30%;
+  display: inline-block;
+  width: 30%;
   height: 100%;
   margin-left: 10px;
 }
@@ -116,16 +110,15 @@ export default {
   width: 100%;
   height: 300px;
 }
-.content-card  {
+.content-card {
   margin-top: 40px;
   width: 100%;
   height: 420px;
 }
-  .item {
-    padding: 18px 0;
-  }
-  .box-card {
-    width: 340px
-  }
-  
+.item {
+  padding: 18px 0;
+}
+.box-card {
+  width: 340px;
+}
 </style>
