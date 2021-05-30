@@ -6,11 +6,6 @@
 
 - [在线预览](https://vue.bigfool.cn)
 
-- [github仓库](https://gitgub.com/bigfool-cn/vue-element-admin-express)
-
-- [gitee仓库](https://gitee.com/bigfool-cn/vue-element-admin-express)
-
-
 ## 前序准备
 
 你需要在本地安装 [node](http://nodejs.org/) 、[git](https://git-scm.com/) 和 [mysql](https://www.mysql.com/)。本项目技术栈基于 [ES2015+](http://es6.ruanyifeng.com/)、[vue](https://cn.vuejs.org/index.html)、[vuex](https://vuex.vuejs.org/zh-cn/)、[vue-router](https://router.vuejs.org/zh-cn/) 、[vue-cli](https://github.com/vuejs/vue-cli) 、[axios](https://github.com/axios/axios) 、 [element-ui](https://github.com/ElemeFE/element) 和 [express](https://www.expressjs.com.cn/)，提前了解和学习这些知识会对使用本项目有很大的帮助。
@@ -120,21 +115,3 @@ npm run lint
 # 代码格式检查并自动修复
 npm run lint -- --fix
 ```
-
-## 打赏
-如果你觉得这个项目帮助到了你，你可以请作者吃一杯冰阔乐表示鼓励🍹:
-![打赏](https://usenav-1256191445.cos.ap-guangzhou.myqcloud.com/pays.png)
-
-## 支持浏览器版本
-
-Modern browsers and Internet Explorer 10+.
-
-| IE / Edge | Firefox | Chrome | Safari |
-| --------- | --------- | --------- | --------- |
-| IE10, IE11, Edge| last 2 versions| last 2 versions| last 2 versions
-
-## License
-
-[MIT](https://github.com/bigfool-cn/vue-element-admin-express/blob/master/LICENSE)
-
-Copyright (c) 2020-present bigfool-cn
