@@ -1,15 +1,3 @@
-## 简介
-
-[vue-element-admin-express](https://vue.bigfool.cn) 是一个后台前端解决方案，它基于 [vue](https://github.com/vuejs/vue) 和 [element-ui](https://github.com/ElemeFE/element)以及[express](https://www.expressjs.com.cn/)实现。它使用了最新的前端技术栈，内置了动态路由，权限验证，并提供了简单的后端API服务，开箱即用，帮助你快速构建前后端分离动态路由和权限模型。
-
-本项目通过[vue-element-admin](https://github.com/PanJiaChen/vue-element-admin)精简改造，移除了大部分组件，如需要其他组件，可前往搬运。
-
-- [在线预览](https://vue.bigfool.cn)
-
-## 前序准备
-
-你需要在本地安装 [node](http://nodejs.org/) 、[git](https://git-scm.com/) 和 [mysql](https://www.mysql.com/)。本项目技术栈基于 [ES2015+](http://es6.ruanyifeng.com/)、[vue](https://cn.vuejs.org/index.html)、[vuex](https://vuex.vuejs.org/zh-cn/)、[vue-router](https://router.vuejs.org/zh-cn/) 、[vue-cli](https://github.com/vuejs/vue-cli) 、[axios](https://github.com/axios/axios) 、 [element-ui](https://github.com/ElemeFE/element) 和 [express](https://www.expressjs.com.cn/)，提前了解和学习这些知识会对使用本项目有很大的帮助。
-
 
 ## 功能
 
@@ -44,16 +32,6 @@ npm run start
 ```
 
 接口地址：http://0.0.0.0:8002
-
-## 服务端 -聊天室
-
-需要具备golang运行环境和相关知识。
-```bash
-cd ./server_chat/src/chat
-go build -o "chat.exe"
-chat.exe
-```
-如果不需要聊天室，可以移除Chat.vue相关涉及文件，可达到移除聊天室。
 
 ## 前台
 
