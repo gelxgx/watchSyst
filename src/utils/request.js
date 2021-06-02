@@ -14,7 +14,7 @@ const service = axios.create({
 service.interceptors.request.use(
   config => {
     // do something before request is sent
-
+    console.log(config)
     if (store.getters.token) {
       // let each request carry token
       // ['X-Token'] is a custom headers key
@@ -43,7 +43,6 @@ service.interceptors.response.use(
    */
   response => {
     const res = response.data
-
     // if the custom code is not 20000, it is judged as an error.
     if (res.code !== 20000) {
       Message({
@@ -57,6 +56,7 @@ service.interceptors.response.use(
     }
   },
   error => {
+    console.log(error)
     // 401: Illegal token: Other clients logged in: Token expired;
     if (error.response.status === 401) {
       // to re-login

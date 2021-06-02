@@ -7,6 +7,7 @@ const userRouter = require('./router/user')
 const roleRouter = require('./router/role')
 const menuRouter = require('./router/menu')
 const logRouter = require('./router/user-log')
+const faceRouter = require('./router/face')
 
 const history = require('connect-history-api-fallback')
 app.use(express.static(path.join(__dirname, 'dist')))
@@ -18,13 +19,15 @@ app.use(expressJwt({
   path: ['/', '/user/login'] // 指定路径不经过 Token 解析
 }))
 
+app.use(bodyParser.urlencoded({limit: '10mb', extended: true })); // for parsing application/x-www-form-urlencoded
 app.use(bodyParser.urlencoded({
   extends: false
 }))
 
-app.use(bodyParser.json())
+app.use(bodyParser.json({limit: '10mb'}))
 
 app.use(function(err, req, res, next) {
+  console.log('eRR',err);
   if (err.name === 'UnauthorizedError') {
     res.status(401).send('token已失效')
   } else {
@@ -37,11 +40,14 @@ app.use('/user', userRouter)
 app.use('/user-log', logRouter)
 app.use('/role', roleRouter)
 app.use('/menu', menuRouter)
+app.use('/face', faceRouter)
 
 // 配置服务端口
-const port = 8002
-const hostname = '0.0.0.0'
-app.listen(port, hostname, () => {
-  console.log(`Server running at http://${hostname}:${port}/`)
+// const port = 8002
+// const hostname = '0.0.0.0'
+// app.listen(port, hostname, () => {
+//   console.log(`Server running at http://${hostname}:${port}/`)
+// })
+app.listen('8002',()=> {
+  console.log('服务启动');
 })
-

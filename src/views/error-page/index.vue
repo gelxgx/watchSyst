@@ -6,7 +6,7 @@
 </template>
 
 <script>
-import VideoJSRecord from '../../../components/VideoRecord'
+import VideoJSRecord from '../../components/VideoRecord'
 import { faceCheck } from '@/api/system/face'
 export default {
   name: 'Demo11',
