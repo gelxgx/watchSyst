@@ -129,12 +129,12 @@ export default {
     });
     this.player.on("timestamp", () => {
       // timestamps
-      console.log("current timestamp: ", this.player.currentTimestamp);
-      console.log("all timestamps: ", this.player.allTimestamps);
+      // console.log("current timestamp: ", this.player.currentTimestamp);
+      // console.log("all timestamps: ", this.player.allTimestamps);
 
-      // stream data
-      console.log("array of blobs: ", this.player.recordedData);
-      this.$emit("allTimestamps", this.player.allTimestamps);
+      // // stream data
+      // console.log("array of blobs: ", this.player.recordedData);
+      // this.$emit("allTimestamps", this.player.allTimestamps);
       this.$emit("recordedData", this.player.recordedData);
       // or construct a single blob:
       // var blob = new Blob(blobs, {

@@ -149,7 +149,7 @@ export const errorRoutes = [
     name: 'ErrorPages',
     meta: {
       title: '视频监控',
-      icon: '404'
+      icon: 'upload'
     },
     children: [
       {

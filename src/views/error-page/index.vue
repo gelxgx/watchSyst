@@ -4,16 +4,43 @@
       <div slot="header" class="clearfix">
         <span>视频监控摄像头</span>
       </div>
-      <VideoJSRecord ref="video" :params="params" @base64="base64" />
+      <VideoJSRecord
+        ref="video"
+        :params="params"
+        @recordedData="getRecordedData"
+      />
     </el-card>
     <!-- <button @click="take">拍照</button> -->
     <el-card class="content-card">
       <div slot="header" class="clearfix">
         <span>录像列表</span>
       </div>
-      <div v-for="o in 4" :key="o" class="text item">
-        {{ "列表内容 " + o }}
-      </div>
+      <el-table :data="recordedData" height="250" style="width: 100%">
+        <el-table-column label="时间" width="220">
+          <template slot-scope="scope">
+            <i class="el-icon-time" />
+            <span style="margin-left: 10px">{{ scope.row.lastModified }}</span>
+          </template>
+        </el-table-column>
+        <el-table-column label="文件" width="220">
+          <template slot-scope="scope">
+            <el-tag size="medium">{{ scope.row.name }}</el-tag>
+          </template>
+        </el-table-column>
+        <el-table-column label="操作">
+          <template slot-scope="scope">
+            <el-button
+              size="mini"
+              @click="handleEdit(scope.$index, scope.row)"
+            >下载</el-button>
+            <el-button
+              size="mini"
+              type="danger"
+              @click="handleDelete(scope.$index, scope.row)"
+            >删除</el-button>
+          </template>
+        </el-table-column>
+      </el-table>
     </el-card>
     <el-card class="click-part">
       <div slot="header" class="clearfix">
@@ -56,6 +83,7 @@
 
 <script>
 import VideoJSRecord from '../../components/VideoRecord'
+import { readBlobToDownload } from '../../utils/blob'
 // import { faceCheck } from "@/api/system/face";
 export default {
   name: 'Demo11',
@@ -67,7 +95,31 @@ export default {
       params: {
         width: 500,
         height: 500
-      }
+      },
+      recordedData: [],
+      allTimestamps: [],
+      tableData: [
+        {
+          date: '2016-05-02',
+          name: '王小虎',
+          address: '上海市普陀区金沙江路 1518 弄'
+        },
+        {
+          date: '2016-05-04',
+          name: '王小虎',
+          address: '上海市普陀区金沙江路 1517 弄'
+        },
+        {
+          date: '2016-05-01',
+          name: '王小虎',
+          address: '上海市普陀区金沙江路 1519 弄'
+        },
+        {
+          date: '2016-05-03',
+          name: '王小虎',
+          address: '上海市普陀区金沙江路 1516 弄'
+        }
+      ]
     }
   },
   mounted() {
@@ -79,6 +131,16 @@ export default {
     },
     download() {
       this.$refs.video.download()
+    },
+    getRecordedData(data) {
+      console.log('recordedData', data)
+      this.recordedData = data
+    },
+    handleEdit(index, row) {
+      readBlobToDownload(row)
+    },
+    handleDelete(index, row) {
+      this.recordedData.splice(index, 1)
     }
   }
 }
