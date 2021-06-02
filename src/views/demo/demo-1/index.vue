@@ -1,6 +1,6 @@
 <template>
   <div class="app-container">
-    <VideoJSRecord ref="video" @base64="base64" />
+    <VideoJSRecord ref="video" :params="params" @base64="base64" />
     <button @click="take">拍照</button>
   </div>
 </template>
@@ -12,6 +12,14 @@ export default {
   name: 'Demo11',
   components: {
     VideoJSRecord
+  },
+  data() {
+    return {
+      params: {
+        width: 300,
+        height: 500
+      }
+    }
   },
   mounted() {
     this.$refs.video.player.record().getDevice()
