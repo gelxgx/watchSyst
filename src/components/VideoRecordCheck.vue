@@ -22,9 +22,6 @@ import RecordRTC from "recordrtc";
     */
 
 import Record from "videojs-record/dist/videojs.record.js";
-
-import { downloadBlob } from "videojs-record/js/utils/file-util.js";
-
 export default {
   props: {
     params: {
@@ -42,35 +39,8 @@ export default {
         width: this.params.width,
         height: this.params.height,
         bigPlayButton: false,
-        controlBar: {
-          volumePanel: false,
-        },
+        controlBar: {},
         plugins: {
-          /*
-                        // this section is only needed when recording audio-only
-                        wavesurfer: {
-                            backend: 'WebAudio',
-                            waveColor: '#36393b',
-                            progressColor: 'black',
-                            debug: true,
-                            cursorWidth: 1,
-                            displayMilliseconds: true,
-                            hideScrollbar: true,
-                            plugins: [
-                                // enable microphone plugin
-                                WaveSurfer.microphone.create({
-                                    bufferSize: 4096,
-                                    numberOfInputChannels: 1,
-                                    numberOfOutputChannels: 1,
-                                    constraints: {
-                                        video: false,
-                                        audio: true
-                                    }
-                                })
-                            ]
-                        },
-                        */
-          // configure videojs-record plugin
           record: {
             maxLength: 600,
             audio: false,
@@ -164,3 +134,5 @@ export default {
   },
 };
 </script>
+<style lang="scss" scoped>
+</style>

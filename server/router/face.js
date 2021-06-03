@@ -10,10 +10,9 @@ const SECRET_KEY = "L2EPehy7stEZ6G0oNQWPbiG9mASnrG6B";
 // 新建一个对象，建议只保存一个对象调用服务接口
 const client = new AipFaceClient(APP_ID, API_KEY, SECRET_KEY);
 
-
+// 获取人脸数据
 router.post('/checkFace',(req,res,next) => {
     img = req.body.img
-
     client.detect(img, 'BASE64').then(result => {
         // console.log(JSON.stringify(result));
         return res.json({
@@ -23,8 +22,30 @@ router.post('/checkFace',(req,res,next) => {
         })
     }).catch(err => {
         // 如果发生网络错误
-        console.log(err);
-        return err
+        return res.json({
+            code: 40000,
+            message: '获取失败',
+            data: err
+        })
+    });
+})
+
+// 调用获取用户人脸列表
+router.post('/userFaceCheck',(req,res,next) => {
+    userid = req.body.userid
+    client.faceGetlist(userid, 'face').then(result => {
+        return res.json({
+            code: 20000,
+            message: '获取成功',
+            data: result
+        })
+    }).catch(err => {
+        // 如果发生网络错误
+        return res.json({
+            code: 40000,
+            message: '获取失败',
+            data: err
+        })
     });
 })
 

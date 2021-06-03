@@ -97,29 +97,7 @@ export default {
         height: 500
       },
       recordedData: [],
-      allTimestamps: [],
-      tableData: [
-        {
-          date: '2016-05-02',
-          name: '王小虎',
-          address: '上海市普陀区金沙江路 1518 弄'
-        },
-        {
-          date: '2016-05-04',
-          name: '王小虎',
-          address: '上海市普陀区金沙江路 1517 弄'
-        },
-        {
-          date: '2016-05-01',
-          name: '王小虎',
-          address: '上海市普陀区金沙江路 1519 弄'
-        },
-        {
-          date: '2016-05-03',
-          name: '王小虎',
-          address: '上海市普陀区金沙江路 1516 弄'
-        }
-      ]
+      allTimestamps: []
     }
   },
   mounted() {
@@ -148,24 +126,24 @@ export default {
 
 <style lang="scss" scoped>
 .content-card {
-  width: 800px;
+  width: 700px;
   height: 350px;
   position: absolute;
   top: 20px;
-  left: 40%;
+  left: 45%;
 }
 .click-part {
-  width: 800px;
+  width: 700px;
   height: 200px;
   position: absolute;
   top: 415px;
-  left: 40%;
+  left: 45%;
 }
 .click-card {
   display: inline-block;
   width: 100px;
   height: 100px;
-  margin-left: 150px;
+  margin-left: 100px;
   margin-right: 100px;
   .click-icon {
     position: relative;
