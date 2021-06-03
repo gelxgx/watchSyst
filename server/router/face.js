@@ -32,8 +32,85 @@ router.post('/checkFace',(req,res,next) => {
 
 // 调用获取用户人脸列表
 router.post('/userFaceCheck',(req,res,next) => {
-    userid = req.body.userid
-    client.faceGetlist(userid, 'face').then(result => {
+    const userid = req.body.userid
+    client.getUser(userid, 'face').then(result => {
+        return res.json({
+            code: 20000,
+            message: '获取成功',
+            data: result
+        })
+    }).catch(err => {
+        // 如果发生网络错误
+        return res.json({
+            code: 40000,
+            message: '获取失败',
+            data: err
+        })
+    });
+})
+
+// 调用人脸注册
+router.post('/addFaceUser',(req,res,next) => {
+    const image = req.body.image;
+    const userid = req.body.userid
+    client.addUser(image, 'BASE64', 'face', userid).then(result => {
+        return res.json({
+            code: 20000,
+            message: '获取成功',
+            data: result
+        })
+    }).catch(err => {
+        // 如果发生网络错误
+        return res.json({
+            code: 40000,
+            message: '获取失败',
+            data: err
+        })
+    });
+})
+
+// 调用人脸更新
+router.post('/updateFaceUser',(req,res,next) => {
+    const image = req.body.image;
+    const userid = req.body.userid
+    client.updateUser(image, 'BASE64', 'face', userid).then(result => {
+        return res.json({
+            code: 20000,
+            message: '获取成功',
+            data: result
+        })
+    }).catch(err => {
+        // 如果发生网络错误
+        return res.json({
+            code: 40000,
+            message: '获取失败',
+            data: err
+        })
+    });
+})
+
+// 调用删除用户
+router.post('/deletFaceUser',(req,res,next) => {
+    const userid = req.body.userid
+    client.deleteUser('face', userid).then(result => {
+        return res.json({
+            code: 20000,
+            message: '获取成功',
+            data: result
+        })
+    }).catch(err => {
+        return res.json({
+            code: 40000,
+            message: '获取失败',
+            data: err
+        })
+    });
+})
+
+// 调用人脸对比
+router.post('/faceSearch', (req, res, next) => {
+    const image = req.body.image;
+    client.search(image, 'BASE64', 'face').then(result => {
         return res.json({
             code: 20000,
             message: '获取成功',
