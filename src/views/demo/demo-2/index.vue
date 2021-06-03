@@ -8,38 +8,66 @@
       </div>
       <el-card class="tool-card" shadow="hover">
         <i class="el-icon-video-camera" />
-        <span>识别</span>
+        <span>人体识别</span>
         <el-switch
           v-model="value"
+          class="switch"
           active-color="#13ce66"
           inactive-color="#ff4949"
+          active-text="开启"
         />
       </el-card>
       <el-card class="tool-card" shadow="hover">
-        <i class="el-icon-data-analysi" />
-        <span>分析</span>
+        <i class="el-icon-search" />
+        <span>人体分析</span>
         <el-switch
           v-model="value"
+          class="switch"
           active-color="#13ce66"
           inactive-color="#ff4949"
+          active-text="开启"
         />
       </el-card>
-      <el-button
-        plain
-        class="face-btn"
-        type="success"
-        icon="el-icon-camera-solid"
-      >人脸录入</el-button>
+      <el-card class="tool-card" shadow="hover">
+        <i class="el-icon-thumb" />
+        <span>手势识别</span>
+        <el-switch
+          v-model="value"
+          class="switch"
+          active-color="#13ce66"
+          inactive-color="#ff4949"
+          active-text="开启"
+        />
+      </el-card>
+      <el-card class="tool-card" shadow="hover">
+        <i class="el-icon-data-line" />
+        <span>危险行为预测</span>
+        <el-switch
+          v-model="value"
+          class="switch"
+          active-color="#13ce66"
+          inactive-color="#ff4949"
+          active-text="开启"
+        />
+        <el-switch
+          v-model="value2"
+          class="switch-t"
+          style="display: block"
+          active-color="#13ce66"
+          inactive-color="#ff4949"
+          active-text="持续开启"
+        />
+      </el-card>
     </el-card>
     <el-card class="face-card" shadow="hover">
       <div slot="header" class="clearfix">
-        <span>人脸信息</span>
+        <span>人体信息</span>
       </div>
       <div class="face-content">
         <span>人脸信息中文</span>
       </div>
       <div class="face-blur">
-        <span>请先开启人脸信息分析功能！</span>
+        <span>请先开启人体属性检测功能！</span>
       </div>
     </el-card>
     <div class="notice-part">
@@ -70,14 +98,15 @@ export default {
   data() {
     return {
       params: {
-        width: 400,
-        height: 300
+        width: 500,
+        height: 350
       },
-      value: false
+      value: false,
+      value2: false
     }
   },
   mounted() {
-    this.$refs.video.player.record().getDevice()
+    // this.$refs.video.player.record().getDevice()
   },
   methods: {
     take() {
@@ -97,12 +126,20 @@ export default {
 .tool-part {
   position: relative;
   top: 20px;
-  width: 400px;
-  height: 260px;
+  width: 1100px;
+  height: 210px;
   .tool-card {
     display: inline-block;
     margin-right: 25px;
-    width: 150px;
+    margin-left: 50px;
+    width: 160px;
+    height:120px;
+    .switch{
+      margin-top: 15px;
+    }
+    .switch-t {
+      margin-top:5px;
+    }
   }
   .face-btn {
     position: relative;
@@ -113,10 +150,10 @@ export default {
 }
 .face-card {
   width: 30%;
-  height: 580px;
+  height: 350px;
   position: absolute;
   top: 20px;
-  left: 35%;
+  left: 45%;
 
   .face-content {
     filter: blur(3px);
@@ -127,7 +164,7 @@ export default {
     span {
       display: inline-block;
       position: relative;
-      top: 200px;
+      top: 100px;
       left: 50%;
       font-size: 14px;
     }
@@ -139,7 +176,7 @@ export default {
   top: 20px;
   right: 30px;
   display: inline-block;
-  width: 30%;
+  width: 20%;
   height: 100%;
   margin-left: 10px;
 }

@@ -10,4 +10,68 @@ const SECRET_KEY = "L2EPehy7stEZ6G0oNQWPbiG9mASnrG6B";
 // 新建一个对象，建议只保存一个对象调用服务接口
 const client = new AipBodyAnalysisClient(APP_ID, API_KEY, SECRET_KEY);
 
+// 调用人体检测与属性识别
+router.post('/checkBody', (req, res, next) =>  {
+    const image = req.body.image;
+    client.bodyAttr(image).then(result => {
+        return res.json({
+            code: 20000,
+            message: '请求成功',
+            data: result.result
+        })
+    }).catch(err => {
+        // 如果发生网络错误
+        return res.json({
+            code: 40000,
+            message: '获取失败',
+            data: err
+        })
+    });
+})
+
+// 调用手势识别 
+router.post('/gesture',(req, res, next) => {
+    client.gesture(image).then(result => {
+        return res.json({
+            code: 20000,
+            message: '请求成功',
+            data: result.result
+        })
+    }).catch(err => {
+        // 如果发生网络错误
+        return res.json({
+            code: 40000,
+            message: '获取失败',
+            data: err
+        })
+    });
+})
+
+// 调用人流量统计-动态版
+router.post('/bodyTracking', (req, res, next) => {
+    const image = req.body.image;
+    // const options = {
+    //     case_id = '123',
+    //     case_init = 'true',
+    //     show = 'false',//是否返回识别图
+    //     area = '1,499,499,499,499,1,499,1'
+    // }
+    client.bodyTracking(image, 'true',options).then(result => {
+        return res.json({
+            code: 20000,
+            message: '请求成功',
+            data: result.result
+        })
+    }).catch(err => {
+        // 如果发生网络错误
+        return res.json({
+            code: 40000,
+            message: '获取失败',
+            data: err
+        })
+    });
+})
+
+
+
 module.exports = router
