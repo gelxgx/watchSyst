@@ -91,6 +91,7 @@ router.get('/info', (req, res, next) => {
     let menu_ids = []
     let buttons = []
     const role_names = []
+    const face_token = user_roles.face_token
     user_roles.roles.forEach(function(item) {
       if (item.status) {
         menu_ids = menu_ids.concat(item.menu_ids)
@@ -111,7 +112,8 @@ router.get('/info', (req, res, next) => {
             name: user_roles.user_name,
             avatar: 'https://s1.ax1x.com/2020/05/25/tp7UWF.gif',
             menus: menus,
-            buttons: buttons
+            buttons: buttons,
+            face_token: face_token
           }
         })
       })

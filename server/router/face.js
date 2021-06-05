@@ -1,5 +1,6 @@
 const express = require('express')
 const router = express.Router()
+const UsersModel = require('../model/users')
 const AipFaceClient = require("baidu-aip-sdk").face;
 
 // 设置APPID/AK/SK
@@ -30,7 +31,7 @@ router.post('/checkFace',(req,res,next) => {
     });
 })
 
-// 调用获取用户人脸列表
+// 调用获取用户人脸信息
 router.post('/userFaceCheck',(req,res,next) => {
     const userid = req.body.userid
     client.getUser(userid, 'face').then(result => {
@@ -53,10 +54,36 @@ router.post('/userFaceCheck',(req,res,next) => {
 router.post('/addFaceUser',(req,res,next) => {
     const image = req.body.image;
     const userid = req.body.userid
+    const user_id = req.body.user_id
     client.addUser(image, 'BASE64', 'face', userid).then(result => {
+        const faceToken = result.result.face_token
+        const addFaceToken = UsersModel.addFaceToken(user_id,{face_token:faceToken})
+        addFaceToken.then(ret => {
+            if(ret) {
+                return res.json({
+                    code: 20000,
+                    message:'添加人脸成功',
+                    data: faceToken
+                })
+            }
+        })
+    }).catch(err => {
+        // 如果发生网络错误
+        return res.json({
+            code: 40000,
+            message: '获取失败',
+            data: err
+        })
+    });
+})
+// 调用人脸删除
+router.post('/deleteFaceUser', (req, res, next)=> {
+    const userid = req.body.userid
+    const facetoken = req.body.facetoken
+    client.faceDelete(userid, 'face', facetoken).then(result => {
         return res.json({
             code: 20000,
-            message: '获取成功',
+            message:'删除人脸成功',
             data: result
         })
     }).catch(err => {
@@ -68,7 +95,6 @@ router.post('/addFaceUser',(req,res,next) => {
         })
     });
 })
-
 // 调用人脸更新
 router.post('/updateFaceUser',(req,res,next) => {
     const image = req.body.image;

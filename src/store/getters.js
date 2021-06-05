@@ -11,6 +11,7 @@ const getters = {
   menus: state => state.user.menus,
   buttons: state => state.user.buttons,
   roles: state => state.user.roles,
+  face_token: state => state.user.face_token,
   permission_routes: state => state.permission.routes,
   chat_name: state => state.chat.chat_name,
   chat_names: state => state.chat.chat_names,

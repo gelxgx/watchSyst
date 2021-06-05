@@ -25,8 +25,18 @@
         </el-select>
       </el-form-item>
       <el-form-item>
-        <el-button v-permission="['system:user:query']" type="primary" icon="el-icon-search" size="mini" @click="handleQuery">搜索</el-button>
-        <el-button icon="el-icon-refresh" size="mini" @click="resetQuery">重置</el-button>
+        <el-button
+          v-permission="['system:user:query']"
+          type="primary"
+          icon="el-icon-search"
+          size="mini"
+          @click="handleQuery"
+        >搜索</el-button>
+        <el-button
+          icon="el-icon-refresh"
+          size="mini"
+          @click="resetQuery"
+        >重置</el-button>
       </el-form-item>
     </el-form>
 
@@ -40,24 +50,23 @@
           @click="handleAdd"
         >新增</el-button>
       </el-col>
-      <el-col :span="1.5">
-        <el-button
-          v-permission="['system:user:del']"
-          type="danger"
-          icon="el-icon-delete"
-          size="mini"
-          :disabled="multiple"
-          @click="handleDelete"
-        >删除</el-button>
-      </el-col>
     </el-row>
 
-    <el-table v-loading="loading" :data="userList" @selection-change="handleSelectionChange">
-      <el-table-column type="selection" width="55" align="center" />
+    <el-table
+      v-loading="loading"
+      :data="userList"
+      @selection-change="handleSelectionChange"
+    >
+      <el-table-column width="55" align="center" />
       <el-table-column label="用户帐号" prop="user_name" width="120" />
-      <el-table-column label="角色" prop="role_name" :show-overflow-tooltip="true" width="150">
+      <el-table-column
+        label="角色"
+        prop="role_name"
+        :show-overflow-tooltip="true"
+        width="150"
+      >
         <template slot-scope="scope">
-          <span>{{ scope.row.roles|mergeRoles }}</span>
+          <span>{{ scope.row.roles | mergeRoles }}</span>
         </template>
       </el-table-column>
       <el-table-column label="状态" align="center" width="100">
@@ -65,21 +74,37 @@
           <el-tag
             :type="scope.row.status ? 'success' : 'info'"
             disable-transitions
-          >{{ scope.row.status ? '启用' : '停用' }}
+          >{{ scope.row.status ? "启用" : "停用" }}
           </el-tag>
         </template>
       </el-table-column>
-      <el-table-column label="修改时间" align="center" prop="update_time" width="180">
+      <el-table-column
+        label="修改时间"
+        align="center"
+        prop="update_time"
+        width="180"
+      >
         <template slot-scope="scope">
-          <span>{{ scope.row.update_time ? parseTime(scope.row.update_time) : '--' }}</span>
+          <span>{{
+            scope.row.update_time ? parseTime(scope.row.update_time) : "--"
+          }}</span>
         </template>
       </el-table-column>
-      <el-table-column label="创建时间" align="center" prop="create_time" width="180">
+      <el-table-column
+        label="创建时间"
+        align="center"
+        prop="create_time"
+        width="180"
+      >
         <template slot-scope="scope">
           <span>{{ parseTime(scope.row.create_time) }}</span>
         </template>
       </el-table-column>
-      <el-table-column label="操作" align="center" class-name="small-padding fixed-width">
+      <el-table-column
+        label="操作"
+        align="center"
+        class-name="small-padding fixed-width"
+      >
         <template slot-scope="scope">
           <el-button
             v-permission="['system:user:edit']"
@@ -109,19 +134,51 @@
     <!-- 添加或修改用户配置对话框 -->
     <el-dialog :title="title" :visible.sync="open" width="500px">
       <el-form ref="form" :model="form" :rules="rules" label-width="80px">
-        <el-form-item v-if="form.action !== 'edit-pwd'" label="用户帐号" prop="user_name">
+        <el-form-item
+          v-if="form.action !== 'edit-pwd'"
+          label="用户帐号"
+          prop="user_name"
+        >
           <el-input v-model="form.user_name" placeholder="请输入帐号" />
         </el-form-item>
-        <el-form-item v-if="form.action === 'edit-pwd'" label="原密码" prop="old_password">
-          <el-input v-model="form.old_password" type="password" placeholder="请输入原用户密码" />
+        <el-form-item
+          v-if="form.action === 'edit-pwd'"
+          label="原密码"
+          prop="old_password"
+        >
+          <el-input
+            v-model="form.old_password"
+            type="password"
+            placeholder="请输入原用户密码"
+          />
         </el-form-item>
-        <el-form-item v-if="!form.user_id || form.action === 'edit-pwd'" label="用户密码" prop="password">
-          <el-input v-model="form.password" type="password" placeholder="请输入用户密码" />
+        <el-form-item
+          v-if="!form.user_id || form.action === 'edit-pwd'"
+          label="用户密码"
+          prop="password"
+        >
+          <el-input
+            v-model="form.password"
+            type="password"
+            placeholder="请输入用户密码"
+          />
         </el-form-item>
-        <el-form-item v-if="!form.user_id || form.action === 'edit-pwd'" label="确认密码" prop="repassword">
-          <el-input v-model="form.repassword" type="password" placeholder="请再次输入用户密码" />
+        <el-form-item
+          v-if="!form.user_id || form.action === 'edit-pwd'"
+          label="确认密码"
+          prop="repassword"
+        >
+          <el-input
+            v-model="form.repassword"
+            type="password"
+            placeholder="请再次输入用户密码"
+          />
         </el-form-item>
-        <el-form-item v-if="form.action !== 'edit-pwd'" label="角色" prop="role_ids">
+        <el-form-item
+          v-if="form.action !== 'edit-pwd'"
+          label="角色"
+          prop="role_ids"
+        >
           <el-select v-model="form.role_ids" multiple placeholder="请选择角色">
             <el-option
               v-for="item in roles"
@@ -131,7 +188,11 @@
             />
           </el-select>
         </el-form-item>
-        <el-form-item v-if="form.action !== 'edit-pwd'" label="状态" prop="status">
+        <el-form-item
+          v-if="form.action !== 'edit-pwd'"
+          label="状态"
+          prop="status"
+        >
           <el-radio-group v-model="form.status">
             <el-radio :key="1" :label="1">开启</el-radio>
             <el-radio :key="0" :label="0">停用</el-radio>
@@ -147,17 +208,23 @@
 </template>
 
 <script>
-import { listUser, delUser, addUser, updateUser, updatePwd } from '@/api/system/user'
+import {
+  listUser,
+  delUser,
+  addUser,
+  updateUser,
+  updatePwd
+} from '@/api/system/user'
 import { listRole } from '@/api/system/role'
 import { MessageBox } from 'element-ui'
 import store from '../../../store'
-
+import { deleteFaceUser } from '@/api/system/face'
 export default {
   name: 'User',
   filters: {
     mergeRoles(roles) {
       const role_names = []
-      roles.forEach(item => {
+      roles.forEach((item) => {
         role_names.push(item.role_name)
       })
       return role_names.join(' | ')
@@ -229,10 +296,19 @@ export default {
         user_name: [
           { required: true, message: '帐号不能为空', trigger: 'blur' },
           { min: 3, max: 10, message: '帐号长度3-10之内', trigger: 'blur' },
-          { pattern: /^[a-zA-Z0-9]+$/, message: '帐号只能字母数字组成', trigger: 'blur' }
+          {
+            pattern: /^[a-zA-Z0-9]+$/,
+            message: '帐号只能字母数字组成',
+            trigger: 'blur'
+          }
         ],
         role_ids: [
-          { type: 'array', required: true, message: '请选择角色', trigger: 'change' }
+          {
+            type: 'array',
+            required: true,
+            message: '请选择角色',
+            trigger: 'change'
+          }
         ],
         old_password: [{ validator: validateOldPwd, trigger: 'change' }],
         password: [{ validator: validatePwd, trigger: 'change' }],
@@ -250,16 +326,14 @@ export default {
       if (this.queryParams.user_name === '') {
         this.queryParams.user_name = undefined
       }
-      listUser(this.queryParams).then(
-        response => {
-          this.userList = response.data
-          this.total = response.data.length
-          this.loading = false
-        }
-      )
+      listUser(this.queryParams).then((response) => {
+        this.userList = response.data
+        this.total = response.data.length
+        this.loading = false
+      })
     },
     getListRole() {
-      listRole().then(response => {
+      listRole().then((response) => {
         this.roles = response.data.roles
       })
     },
@@ -294,7 +368,7 @@ export default {
     },
     // 多选框选中数据
     handleSelectionChange(selection) {
-      this.ids = selection.map(item => item.user_id)
+      this.ids = selection.map((item) => item.user_id)
       this.single = selection.length !== 1
       this.multiple = !selection.length
     },
@@ -314,7 +388,7 @@ export default {
         user_name: row.user_name,
         status: row.status
       }
-      const role_ids = row.roles.map(item => {
+      const role_ids = row.roles.map((item) => {
         return item.role_id
       })
       this.$set(this.form, 'role_ids', role_ids)
@@ -344,10 +418,10 @@ export default {
     },
     /** 提交按钮 */
     submitForm: function() {
-      this.$refs['form'].validate(valid => {
+      this.$refs['form'].validate((valid) => {
         if (valid) {
           if (this.form.action === 'edit-pwd') {
-            updatePwd(this.form.user_id, this.form).then(response => {
+            updatePwd(this.form.user_id, this.form).then((response) => {
               if (this.form.user_id === this.$store.getters.user_id) {
                 this.reLogin()
               }
@@ -358,7 +432,7 @@ export default {
             return false
           }
           if (this.form.user_id !== undefined) {
-            updateUser(this.form.user_id, this.form).then(response => {
+            updateUser(this.form.user_id, this.form).then((response) => {
               if (this.form.user_id === this.$store.getters.user_id) {
                 this.reLogin()
               }
@@ -367,7 +441,7 @@ export default {
               this.getList()
             })
           } else {
-            addUser(this.form).then(response => {
+            addUser(this.form).then((response) => {
               this.msgSuccess(response.message)
               this.open = false
               this.getList()
@@ -379,22 +453,34 @@ export default {
     /** 删除按钮操作 */
     handleDelete(row) {
       const user_ids = row.user_id ? [row.user_id] : this.ids
-      this.$confirm('是否确认删除用户编号为"' + user_ids + '"的数据项?', '警告', {
-        confirmButtonText: '确定',
-        cancelButtonText: '取消',
-        type: 'warning'
-      }).then(function() {
-        return delUser(user_ids)
-      }).then(() => {
-        this.getList()
-        this.msgSuccess('删除成功')
-      }).catch(function() {})
+      this.$confirm(
+        '是否确认删除用户编号为"' + user_ids + '"的数据项?',
+        '警告',
+        {
+          confirmButtonText: '确定',
+          cancelButtonText: '取消',
+          type: 'warning'
+        }
+      )
+        .then(() => {
+          const promise1 = delUser(user_ids)
+          const promise2 = deleteFaceUser({
+            userid: row.user_name,
+            facetoken: row.face_token
+          })
+          Promise.all([promise2, promise1]).then((res) => {
+            console.log('RES', res)
+            this.getList()
+            this.msgSuccess('删除成功')
+          })
+        })
+        .catch(function() {})
     }
   }
 }
 </script>
 <style lang="scss" scoped>
-  /deep/ .el-select--default {
-    width: 100%;
-  }
+/deep/ .el-select--default {
+  width: 100%;
+}
 </style>

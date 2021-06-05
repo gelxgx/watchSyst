@@ -23,6 +23,9 @@ const UsersModel = sequelize.define('users', {
     type: Sequelize.TINYINT(4),
     defaultValue: 0
   },
+  face_token: {
+    type: Sequelize.STRING(255)
+  },
   update_time: {
     type: Sequelize.DATE,
     get() {
@@ -37,6 +40,22 @@ const UsersModel = sequelize.define('users', {
     }
   }
 })
+
+UsersModel.addFaceToken = async function(user_id,face_token) {
+  const t = await sequelize.transaction()
+  try{
+    await UsersModel.update(face_token,{
+      where: {
+        user_id: user_id
+      }
+    })
+    t.commit()
+    return true
+  } catch(e) {
+    t.rollback()
+    return e.message
+  }
+}
 
 UsersModel.updateUser = async function(user_id, data) {
   const t = await sequelize.transaction()
