@@ -1,6 +1,7 @@
 <template>
   <div class="app-container">
     <VideoJSRecord ref="video" :params="params" @base64="base64" />
+    <canvas id="canvas" ref="canvas" class="canvas" width="400" height="300" />
     <!-- <button @click="take">拍照</button> -->
     <el-card class="tool-part" shadow="hover">
       <div slot="header" class="clearfix">
@@ -13,6 +14,7 @@
           v-model="value"
           active-color="#13ce66"
           inactive-color="#ff4949"
+          @change="openCheck"
         />
       </el-card>
       <el-card class="tool-card" shadow="hover">
@@ -84,10 +86,28 @@ export default {
       this.$refs.video.take()
     },
     base64(data) {
-      const params = data.split(',')
-      faceCheck({ img: params[1] }).then((res) => {
+      faceCheck({ img: data }).then((res) => {
         console.log('res', res)
+        const url = res.data.face_list[0]
+        const width = 100 + url.location.width
+        const height = 130 + url.location.height
+        const y = url.location.top
+        const x = url.location.left
+        this.content(x, y, width, height)
       })
+    },
+    openCheck(data) {
+      if (data) {
+        this.$refs.video.take()
+      }
+    },
+    content(x, y, width, height) {
+      const canvas = this.$refs.canvas
+      const ctx = canvas.getContext('2d')
+      ctx.clearRect(0, 0, 400, 300)
+      ctx.strokeStyle = 'yellow'
+      ctx.lineWidth = 3
+      ctx.strokeRect(x, y, width, height)
     }
   }
 }
@@ -151,5 +171,9 @@ export default {
   margin-top: 40px;
   width: 100%;
   height: 240px;
+}
+.canvas {
+  position: absolute;
+  top: 17px;
 }
 </style>

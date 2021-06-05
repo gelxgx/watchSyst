@@ -223,6 +223,8 @@ export default {
       const info = {}
       Object.assign(info, this.addDevice)
       this.device.push(info)
+      this.addDevice.name = ''
+      this.addDevice.opem = false
       this.$message({
         message: '添加设备成功',
         type: 'success'

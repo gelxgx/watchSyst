@@ -14,7 +14,10 @@ const client = new AipFaceClient(APP_ID, API_KEY, SECRET_KEY);
 // 获取人脸数据
 router.post('/checkFace',(req,res,next) => {
     img = req.body.img
-    client.detect(img, 'BASE64').then(result => {
+    const options = {
+        face_field: 'age,beauty,expression,face_shape,gender,glasses,eye_status,emotion'
+    }
+    client.detect(img, 'BASE64',options).then(result => {
         // console.log(JSON.stringify(result));
         return res.json({
             code: 20000,
