@@ -21,9 +21,7 @@ app.use(expressJwt({
 }))
 
 app.use(bodyParser.urlencoded({limit: '10mb', extended: true })); // for parsing application/x-www-form-urlencoded
-app.use(bodyParser.urlencoded({
-  extends: false
-}))
+
 
 app.use(bodyParser.json({limit: '10mb'}))
 

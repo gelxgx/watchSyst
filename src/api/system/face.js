@@ -10,6 +10,26 @@ export function faceCheck(params) {
   })
 }
 
+export function faceCheckMore(params) {
+  return request({
+    url: '/face/checkFaceMore',
+    method: 'post',
+    data: {
+      ...params
+    }
+  })
+}
+
+export function faceSearch (params) {
+  return request({
+    url: '/face/faceSearch',
+    method: 'post',
+    data: {
+      ...params
+    }
+  })
+}
+
 export function getUserFace(params) {
   return request({
     url: '/face/userFaceCheck',
@@ -25,6 +45,16 @@ export function addFaceUser(params) {
     url: '/face/addFaceUser',
     method: 'post',
     data: {
+      ...params
+    }
+  })
+}
+
+export function updateFaceUser(params) {
+  return request({
+    url: '/face/updateFaceUser',
+    method: 'post',
+    data: { 
       ...params
     }
   })

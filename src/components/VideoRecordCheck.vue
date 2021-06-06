@@ -116,7 +116,7 @@ export default {
           let blob = res;
           this.blobToBase64(blob, (res) => {
             let base64 = res.split(",");
-            this.$emit("base64", base64[1]);
+            this.$emit("base64", base64[1], res);
           });
         });
     },
