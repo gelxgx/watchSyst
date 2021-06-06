@@ -17,7 +17,7 @@ router.post('/checkBody', (req, res, next) =>  {
         return res.json({
             code: 20000,
             message: '请求成功',
-            data: result.result
+            data: result
         })
     }).catch(err => {
         // 如果发生网络错误
@@ -31,6 +31,7 @@ router.post('/checkBody', (req, res, next) =>  {
 
 // 调用手势识别 
 router.post('/gesture',(req, res, next) => {
+    const image = req.body.image;
     client.gesture(image).then(result => {
         return res.json({
             code: 20000,
@@ -47,30 +48,7 @@ router.post('/gesture',(req, res, next) => {
     });
 })
 
-// 调用人流量统计-动态版
-router.post('/bodyTracking', (req, res, next) => {
-    const image = req.body.image;
-    // const options = {
-    //     case_id = '123',
-    //     case_init = 'true',
-    //     show = 'false',//是否返回识别图
-    //     area = '1,499,499,499,499,1,499,1'
-    // }
-    client.bodyTracking(image, 'true',options).then(result => {
-        return res.json({
-            code: 20000,
-            message: '请求成功',
-            data: result.result
-        })
-    }).catch(err => {
-        // 如果发生网络错误
-        return res.json({
-            code: 40000,
-            message: '获取失败',
-            data: err
-        })
-    });
-})
+
 
 
 

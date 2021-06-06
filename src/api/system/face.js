@@ -20,7 +20,7 @@ export function faceCheckMore(params) {
   })
 }
 
-export function faceSearch (params) {
+export function faceSearch(params) {
   return request({
     url: '/face/faceSearch',
     method: 'post',
@@ -54,7 +54,7 @@ export function updateFaceUser(params) {
   return request({
     url: '/face/updateFaceUser',
     method: 'post',
-    data: { 
+    data: {
       ...params
     }
   })
