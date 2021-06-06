@@ -119,7 +119,16 @@
         <div slot="header" class="clearfix">
           <span>警告信息</span>
         </div>
-        <span>暂无警报</span>
+        <span v-if="warmingInfo.length == 0">暂无警报</span>
+        <div v-else class="warmingInfo-part">
+          <span
+            v-for="item in warmingInfo"
+            :key="item.key"
+            class="warmingInfo"
+            @click="warmingInfoCheck(item)"
+            >{{ item.text }}</span
+          >
+        </div>
       </el-card>
       <el-card class="content-card" shadow="hover">
         <div slot="header" class="clearfix">
@@ -138,6 +147,23 @@
       </el-card>
       <el-dialog
         title="警告详情"
+        :visible.sync="warmingInfoC.isShow"
+        width="30%"
+      >
+        <span>{{ warmingInfoC.text }}，具体画面如下</span>
+        <img
+          style="width: 270px; height: 200px; margin-top: 20px"
+          :src="warmingInfoC.img"
+          alt=""
+        />
+        <span slot="footer" class="dialog-footer">
+          <el-button type="primary" @click="warmingInfoC.isShow = false"
+            >关 闭</el-button
+          >
+        </span>
+      </el-dialog>
+      <el-dialog
+        title="公告详情"
         :visible.sync="fingerInfoM.isShow"
         width="30%"
       >
@@ -213,6 +239,12 @@ export default {
         text: "",
         img: "",
       },
+      warmingInfo: [],
+      warmingInfoC: {
+        isShow: false,
+        text: "",
+        img: "",
+      },
     };
   },
   mounted() {
@@ -227,6 +259,14 @@ export default {
         checkBody({ image: data }).then((res) => {
           if (this.bodyfenxi.open === true) {
             this.makeBodyInfo(res.data.person_info[0].attributes);
+          } else if (this.bodyshibie.open === true) {
+            const myDate = new Date();
+            const mytime = myDate.toLocaleString();
+            const info = {
+              text: `${mytime}有人体经过`,
+              image: resData,
+            };
+            this.warmingInfo.push(info);
           }
           this.clearCanvas();
           const url = res.data.person_info[0];
@@ -347,6 +387,11 @@ export default {
       this.bodyInfo.vehicle = data.vehicle.name;
       this.bodyInfo.orientation = data.orientation.name;
     },
+    warmingInfoCheck(data) {
+      this.warmingInfoC.isShow = true;
+      this.warmingInfoC.text = data.text;
+      this.warmingInfoC.img = data.image;
+    },
     fingerInfoCheck(data, image) {
       let info = {
         type: this.fingerType(data),
@@ -355,9 +400,9 @@ export default {
       this.fingerInfo.push(info);
     },
     fingerInfoMore(data) {
-      this.warmingInfoC.isShow = true;
-      this.warmingInfoC.text = data.text;
-      this.warmingInfoC.img = data.image;
+      this.fingerInfoM.isShow = true;
+      this.fingerInfoM.text = data.type;
+      this.fingerInfoM.img = data.image;
     },
     fingerType(data) {
       switch (data) {
@@ -483,6 +528,16 @@ export default {
 .warming-card {
   width: 100%;
   height: 300px;
+  .warmingInfo-part {
+    height: 200px;
+    overflow: auto;
+  }
+  .warmingInfo {
+    display: inline-block;
+    margin-top: 10px;
+    font-size: 14px;
+    cursor: pointer;
+  }
 }
 .content-card {
   margin-top: 40px;
@@ -496,6 +551,7 @@ export default {
     display: inline-block;
     margin-top: 10px;
     font-size: 14px;
+    cursor: pointer;
   }
 }
 .canvas {
