@@ -1,9 +1,9 @@
 const Sequelize = require('sequelize')
 
 const sequelize = new Sequelize(
-  'mysql', // 数据库名
+  'shop', // 数据库名
   'root', // 用户名
-  'gx19981015', // 密码
+  'zcd20000923', // 密码
   {
     'dialect': 'mysql', // 数据库类型
     'host': '127.0.0.1', // ip
